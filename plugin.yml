@@ -13,6 +13,4 @@ configuration:
       type: string
     profile:
       type: string
-  required:
-    - account-name
   additionalProperties: false
