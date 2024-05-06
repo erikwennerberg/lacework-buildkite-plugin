@@ -13,7 +13,7 @@ setup() {
 @test 'Default API key environment variable is used' {
   unset BUILDKITE_PLUGIN_LACEWORK_API_KEY_ENV_VAR
   stub lacework "echo called with params \$@"
-  run "${PWD}"/hooks/command
+  run "${PWD}"/hooks/environment
 
   assert_success
   assert_output --partial '--api_key API_KEY'
@@ -24,7 +24,7 @@ setup() {
 @test 'Missing custom API key environment variable' {
   unset MY_VAR
 
-  run "${PWD}"/hooks/command
+  run "${PWD}"/hooks/environment
 
   assert_failure
   assert_output --partial 'unbound variable'
@@ -34,7 +34,7 @@ setup() {
   unset LW_API_KEY
   unset BUILDKITE_PLUGIN_LACEWORK_API_KEY_ENV_VAR
 
-  run "${PWD}"/hooks/command
+  run "${PWD}"/hooks/environment
 
   assert_failure
   assert_output --partial 'unbound variable'
@@ -42,7 +42,7 @@ setup() {
 
 @test "Error if no account name was set" {
   unset BUILDKITE_PLUGIN_LACEWORK_ACCOUNT_NAME
-  run "$PWD/hooks/command"
+  run "$PWD/hooks/environment"
 
   assert_failure
   assert_output --partial "ERROR: Missing required config 'account_name'"
@@ -52,7 +52,7 @@ setup() {
   unset BUILDKITE_PLUGIN_LACEWORK_API_KEY_SECRET_ENV_VAR
   export LW_API_SECRET='API_KEY_SECRET'
   stub lacework "echo called with params \$@"
-  run "${PWD}"/hooks/command
+  run "${PWD}"/hooks/environment
 
   assert_success
   assert_output --partial '--api_secret API_KEY_SECRET'

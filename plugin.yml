@@ -5,7 +5,7 @@ requirements:
   - lacework
 configuration:
   properties:
-    account-name:
+    account-name-env-var:
       type: string
     api-key-env-var:
       type: string
