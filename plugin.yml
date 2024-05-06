@@ -1,6 +1,6 @@
-name: Lacework Code Security
+name: Lacework 
 description: Detects behaviors to find unknown threats through a patented form of behavioral analytics
-author: https://github.com/buildkite-plugins
+author: https://github.com/erikwennerberg
 requirements:
   - lacework
 configuration:
