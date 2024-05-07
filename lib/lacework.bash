@@ -72,9 +72,9 @@ function lacework_sca() {
     --save-results
     )
 
-    if [ -n $PROFILE ]; then
+    if [ -n "$PROFILE" ]; then
     CMD+=(
-        --profile $PROFILE
+        --profile "$PROFILE"
     )
     fi  
 
@@ -99,7 +99,7 @@ function lacework_iac() {
 
     if [ -n "$PROFILE" ]; then
     CMD+=(
-        --profile $PROFILE
+        --profile "$PROFILE"
     )
     fi  
 
