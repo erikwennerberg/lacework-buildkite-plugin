@@ -97,7 +97,7 @@ function lacework_iac() {
     --save-results
     )
 
-    if [ -n $PROFILE ]; then
+    if [ -n "$PROFILE" ]; then
     CMD+=(
         --profile $PROFILE
     )
