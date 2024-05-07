@@ -5,7 +5,17 @@ requirements:
   - lacework
 configuration:
   properties:
-    account-name-env-var:
+    scan-type:
+        enum: [ "sca", "iac", "vulnerability","sast" ]
+    iac-scan-type:
+        enum: [ "cloudformation", "kubernetes", "helm","terraform","kustomize","secrets" ]
+    vulnerability-scan-registry:
+      type: string
+    vulnerability-scan-repository:
+      type: string
+    vulnerability-scan-tag:
+      type: string
+    account-name:
       type: string
     api-key-env-var:
       type: string
@@ -13,4 +23,7 @@ configuration:
       type: string
     profile:
       type: string
+  required:
+    - account-name
+    - scan-type
   additionalProperties: false

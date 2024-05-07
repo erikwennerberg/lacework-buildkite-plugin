@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+# shellcheck source=lib/lacework.bash
+. "$DIR/../lib/lacework.bash"
+
+# set up the environment
+configure_plugin
+
+#run the scan
+lacework_scan
