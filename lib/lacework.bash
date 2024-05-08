@@ -90,6 +90,8 @@ function lacework_sca() {
         --api_secret "${API_KEY_SECRET_ENV_VAR}"
     )
 
+    echo "${CMD[@]}"
+
     "${CMD[@]}" .
 }
 
