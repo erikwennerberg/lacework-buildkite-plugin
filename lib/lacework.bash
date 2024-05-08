@@ -34,6 +34,12 @@ function configure_plugin() {
 
     export PROFILE="$(plugin_read_config PROFILE '')" 
 
+    export VULNERABILITY_SCAN_REGISTRY="$(plugin_read_config VULNERABILITY_SCAN_REGISTRY '')"
+
+    export VULNERABILITY_SCAN_REPOSITORY="$(plugin_read_config VULNERABILITY_SCAN_REPOSITORY '')"
+
+    export VULNERABILITY_SCAN_TAG="$(plugin_read_config VULNERABILITY_SCAN_TAG '')"
+
     #put other options from plugin.yml here
     
 
@@ -105,9 +111,46 @@ function lacework_iac() {
 
     CMD+=(
         --account "${ACCOUNT_NAME}"
-        --api_key "${!API_KEY_ENV_VAR}"
-        --api_secret "${!API_KEY_SECRET_ENV_VAR}"
+        --api_key "${API_KEY_ENV_VAR}"
+        --api_secret "${API_KEY_SECRET_ENV_VAR}"
     )
+
+    echo "${CMD[@]}"
+
+    "${CMD[@]}" .
+}
+
+function lacework_vulnerability() {
+
+    echo "--- Running Lacework Container Vulnerability scan"
+
+    CMD=(
+    lacework
+    vulnerability container scan
+    )
+
+    if [ -n "$PROFILE" ]; then
+    CMD+=(
+        --profile "$PROFILE"
+    )
+    fi  
+
+    CMD+=(
+        --account "${ACCOUNT_NAME}"
+        --api_key "${API_KEY_ENV_VAR}"
+        --api_secret "${API_KEY_SECRET_ENV_VAR}"
+    )
+
+    CMD+=(
+        "${VULNERABILITY_SCAN_REGISTRY}"
+        "${VULNERABILITY_SCAN_REPOSITORY}"
+        "${VULNERABILITY_SCAN_TAG}"
+    )
+
+    CMD+=(
+        --noninteractive
+    )
+    
 
     "${CMD[@]}" .
 }
