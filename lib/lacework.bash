@@ -148,8 +148,7 @@ function lacework_vulnerability() {
     )
 
     CMD+=(
-        vulnerability container scan
-        "${VULNERABILITY_SCAN_REGISTRY}"
+        vuln-scanner image evaluate
         "${VULNERABILITY_SCAN_REPOSITORY}"
         "${VULNERABILITY_SCAN_TAG}"
     )

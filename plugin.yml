@@ -10,8 +10,6 @@ configuration:
         enum: [ "sca", "iac", "vulnerability","sast" ]
     iac-scan-type:
         enum: [ "cloudformation-scan", "kubernetes-scan", "helm-scan","terraform-scan","kustomize-scan","secrets-scan" ]
-    vulnerability-scan-registry:
-      type: string
     vulnerability-scan-repository:
       type: string
     vulnerability-scan-tag:
