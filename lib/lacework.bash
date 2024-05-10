@@ -107,6 +107,36 @@ function lacework_sca() {
     "${CMD[@]}" 
 }
 
+function lacework_sast() {
+
+    echo "--- Running Lacework SAST scan"
+
+    CMD=(
+    lacework
+    )
+
+    if [ -n "$PROFILE" ]; then
+    CMD+=(
+        --profile "$PROFILE"
+    )
+    fi  
+
+    CMD+=(
+        --account "${ACCOUNT_NAME}"
+        --api_key "${API_KEY_ENV_VAR}"
+        --api_secret "${API_KEY_SECRET_ENV_VAR}"
+    )
+
+    CMD+=(
+        sast scan 
+    )
+        
+
+    echo "${CMD[@]}"
+
+    "${CMD[@]}" 
+}
+
 function lacework_iac() {
 
     echo "--- Running Lacework IAC scan"
