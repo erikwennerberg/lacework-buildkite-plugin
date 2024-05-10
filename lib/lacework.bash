@@ -74,8 +74,6 @@ function lacework_sca() {
 
     CMD=(
     lacework
-    sca scan
-    --save-results
     )
 
     if [ -n "$PROFILE" ]; then
@@ -90,9 +88,15 @@ function lacework_sca() {
         --api_secret "${API_KEY_SECRET_ENV_VAR}"
     )
 
+    CMD+=(
+        sca scan .
+        --save-results
+    )
+        
+
     echo "${CMD[@]}"
 
-    "${CMD[@]}" .
+    "${CMD[@]}" 
 }
 
 function lacework_iac() {
@@ -101,8 +105,6 @@ function lacework_iac() {
 
     CMD=(
     lacework
-    iac scan
-    --save-results
     )
 
     if [ -n "$PROFILE" ]; then
@@ -115,7 +117,10 @@ function lacework_iac() {
         --account "${ACCOUNT_NAME}"
         --api_key "${API_KEY_ENV_VAR}"
         --api_secret "${API_KEY_SECRET_ENV_VAR}"
+        iac
+        "${IAC_SCAN_TYPE}"
     )
+
 
     echo "${CMD[@]}"
 
@@ -153,6 +158,7 @@ function lacework_vulnerability() {
         --noninteractive
     )
     
+    echo "${CMD[@]}"
 
     "${CMD[@]}" .
 }
