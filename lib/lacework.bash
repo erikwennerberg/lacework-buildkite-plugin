@@ -142,7 +142,7 @@ function lacework_vulnerability() {
     fi  
 
     CMD+=(
-        --account "${ACCOUNT_NAME}"
+        --account-name "${ACCOUNT_NAME}"
         --access-token "${ACCESS_TOKEN_ENV_VAR}"
     )
 
