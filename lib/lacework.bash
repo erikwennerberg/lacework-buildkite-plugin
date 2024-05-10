@@ -34,7 +34,7 @@ function configure_plugin() {
 
     export PROFILE="$(plugin_read_config PROFILE '')" 
 
-    export VULNERABILITY_SCAN_REGISTRY="$(plugin_read_config VULNERABILITY_SCAN_REGISTRY '')"
+    export ACCESS_TOKEN_ENV_VAR="$(plugin_read_config ACCESS_TOKEN_ENV_VAR LW_API_TOKEN)"
 
     export VULNERABILITY_SCAN_REPOSITORY="$(plugin_read_config VULNERABILITY_SCAN_REPOSITORY '')"
 
@@ -143,8 +143,7 @@ function lacework_vulnerability() {
 
     CMD+=(
         --account "${ACCOUNT_NAME}"
-        --api_key "${API_KEY_ENV_VAR}"
-        --api_secret "${API_KEY_SECRET_ENV_VAR}"
+        --access-token"${ACCESS_TOKEN_ENV_VAR}"
     )
 
     CMD+=(

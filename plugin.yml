@@ -20,6 +20,8 @@ configuration:
       type: string
     api-key-secret-env-var:
       type: string
+    access-token-env-var:
+      type: string
     profile:
       type: string
   required:
