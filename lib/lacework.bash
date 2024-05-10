@@ -32,6 +32,11 @@ function configure_plugin() {
 
     export API_KEY_SECRET_ENV_VAR="$(plugin_read_config API_KEY_SECRET_ENV_VAR LW_API_SECRET)"
 
+    # need to export the below ENV variables for IAC to work since you can't pass those via CLI
+    export LW_ACCOUNT=ACCOUNT_NAME
+    export LW_API_KEY=API_KEY_ENV_VAR
+    export LW_API_SECRET=API_KEY_SECRET_ENV_VAR
+
     export PROFILE="$(plugin_read_config PROFILE '')" 
 
     export ACCESS_TOKEN_ENV_VAR="$(plugin_read_config ACCESS_TOKEN_ENV_VAR LW_API_TOKEN)"
@@ -114,9 +119,6 @@ function lacework_iac() {
     fi  
 
     CMD+=(
-        --account "${ACCOUNT_NAME}"
-        --api_key "${API_KEY_ENV_VAR}"
-        --api_secret "${API_KEY_SECRET_ENV_VAR}"
         iac
         "${IAC_SCAN_TYPE}"
     )
@@ -124,7 +126,7 @@ function lacework_iac() {
 
     echo "${CMD[@]}"
 
-    "${CMD[@]}" .
+    "${CMD[@]}" 
 }
 
 function lacework_vulnerability() {
