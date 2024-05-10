@@ -28,6 +28,9 @@ function configure_plugin() {
         exit 1
     fi
 
+
+    export IAC_SCAN_TYPE="$(plugin_read_config IAC_SCAN_TYPE)"
+
     export API_KEY_ENV_VAR="$(plugin_read_config API_KEY_ENV_VAR LW_API_KEY)"
 
     export API_KEY_SECRET_ENV_VAR="$(plugin_read_config API_KEY_SECRET_ENV_VAR LW_API_SECRET)"
