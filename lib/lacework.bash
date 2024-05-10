@@ -133,7 +133,6 @@ function lacework_vulnerability() {
 
     CMD=(
     lacework
-    vulnerability container scan
     )
 
     if [ -n "$PROFILE" ]; then
@@ -149,14 +148,13 @@ function lacework_vulnerability() {
     )
 
     CMD+=(
+        vulnerability container scan
         "${VULNERABILITY_SCAN_REGISTRY}"
         "${VULNERABILITY_SCAN_REPOSITORY}"
         "${VULNERABILITY_SCAN_TAG}"
-    )
-
-    CMD+=(
         --noninteractive
     )
+
     
     echo "${CMD[@]}"
 
