@@ -143,7 +143,7 @@ function lacework_vulnerability() {
 
     CMD+=(
         --account "${ACCOUNT_NAME}"
-        --access-token"${ACCESS_TOKEN_ENV_VAR}"
+        --access-token "${ACCESS_TOKEN_ENV_VAR}"
     )
 
     CMD+=(
