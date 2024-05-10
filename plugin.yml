@@ -3,6 +3,7 @@ description: Detects behaviors to find unknown threats through a patented form o
 author: https://github.com/erikwennerberg
 requirements:
   - lacework
+  - docker
 configuration:
   properties:
     scan-type:

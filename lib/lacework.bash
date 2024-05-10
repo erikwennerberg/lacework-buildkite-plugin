@@ -152,7 +152,6 @@ function lacework_vulnerability() {
         "${VULNERABILITY_SCAN_REGISTRY}"
         "${VULNERABILITY_SCAN_REPOSITORY}"
         "${VULNERABILITY_SCAN_TAG}"
-        --noninteractive
     )
 
     
