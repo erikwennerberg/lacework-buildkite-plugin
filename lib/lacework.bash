@@ -36,9 +36,9 @@ function configure_plugin() {
     export API_KEY_SECRET_ENV_VAR="$(plugin_read_config API_KEY_SECRET_ENV_VAR LW_API_SECRET)"
 
     # need to export the below ENV variables for IAC to work since you can't pass those via CLI
-    export LW_ACCOUNT=ACCOUNT_NAME
-    export LW_API_KEY=API_KEY_ENV_VAR
-    export LW_API_SECRET=API_KEY_SECRET_ENV_VAR
+    export LW_ACCOUNT="${ACCOUNT_NAME}"
+    export LW_API_KEY="${API_KEY_ENV_VAR}"
+    export LW_API_SECRET="${API_KEY_SECRET_ENV_VAR}"
 
     export PROFILE="$(plugin_read_config PROFILE '')" 
 
