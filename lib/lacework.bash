@@ -141,10 +141,7 @@ function lacework_vulnerability() {
     )
     fi  
 
-    CMD+=(
-        --account-name "${ACCOUNT_NAME}"
-        --access-token "${ACCESS_TOKEN_ENV_VAR}"
-    )
+
 
     CMD+=(
         vuln-scanner image evaluate
@@ -152,6 +149,10 @@ function lacework_vulnerability() {
         "${VULNERABILITY_SCAN_TAG}"
     )
 
+    CMD+=(
+        --account-name "${ACCOUNT_NAME}"
+        --access-token "${ACCESS_TOKEN_ENV_VAR}"
+    )
     
     echo "${CMD[@]}"
 
