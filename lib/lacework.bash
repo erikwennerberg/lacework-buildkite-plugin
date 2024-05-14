@@ -164,7 +164,7 @@ function lacework_sast() {
     SARIF_ARTIFACT="lacework-sast-report-${BUILDKITE_PIPELINE_SLUG}-${BUILDKITE_BUILD_NUMBER}.sarif"
 
     CMD+=(
-        sast scan -–output "${SARIF_ARTIFACT}"
+        sast scan -o "${SARIF_ARTIFACT}"
     )
         
 
