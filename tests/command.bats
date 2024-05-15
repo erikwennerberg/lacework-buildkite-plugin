@@ -79,7 +79,7 @@ setup() {
   export BUILDKITE_BUILD_NUMBER='123'
 
   stub lacework \
-  "--account myaccount --api_key key1234 --api_secret secret1234 sast scan -–output lacework-sast-report-slug-123.sarif : echo 'SAST Scan'"
+  "--account myaccount --api_key key1234 --api_secret secret1234 sast scan -o lacework-sast-report-slug-123.sarif : echo 'SAST Scan'"
 
   #stub buildkite-agent \
   #"artifact upload  lacework-sast-report-slug-123.sarif : echo 'SAST Scan Artifact'"
@@ -87,7 +87,7 @@ setup() {
   run "${PWD}"/hooks/command
 
   #assert_success
-  assert_output --partial "lacework --account myaccount --api_key key1234 --api_secret secret1234 sast scan -–output lacework-sast-report-slug-123.sarif"
+  assert_output --partial "lacework --account myaccount --api_key key1234 --api_secret secret1234 sast scan -o lacework-sast-report-slug-123.sarif"
   
   unstub lacework
   #unstub buildkite-agent
@@ -122,6 +122,23 @@ setup() {
   unstub lacework
 }
 
+@test 'Lacework IAC SCAN with fail' {
+
+  export BUILDKITE_PLUGIN_LACEWORK_SCAN_TYPE='iac'
+  export BUILDKITE_PLUGIN_LACEWORK_IAC_SCAN_TYPE='kubernetes-scan'
+  export BUILDKITE_PLUGIN_LACEWORK_FAIL_LEVEL='critical'
+
+
+  stub lacework \
+  "iac kubernetes-scan --fail critical : echo 'IAC Scan'"
+
+  run "${PWD}"/hooks/command
+
+  assert_success
+  
+  unstub lacework
+}
+
 @test 'Lacework VULN SCAN missing environment variables' {
 
   BUILDKITE_PLUGIN_LACEWORK_SCAN_TYPE='vulnerability'
@@ -141,7 +158,7 @@ setup() {
   export BUILDKITE_PLUGIN_LACEWORK_VULNERABILITY_SCAN_TAG='latest'
 
   stub lacework \
-  "--account-name myaccount --access-token mytoken1234 vuln-scanner image evaluate myrepo latest : echo 'Vuln Scan'"
+  "--account-name myaccount --access-token mytoken1234 vuln-scanner -s image evaluate myrepo latest : echo 'Vuln Scan'"
 
   run "${PWD}"/hooks/command
 
@@ -149,3 +166,22 @@ setup() {
   
   unstub lacework
 }
+
+#@test 'Lacework VULN SCAN with fail' {
+
+  #BUILDKITE_PLUGIN_LACEWORK_SCAN_TYPE='vulnerability'
+  #export BUILDKITE_PLUGIN_LACEWORK_ACCESS_TOKEN_ENV_VAR='mytoken1234'
+  #export BUILDKITE_PLUGIN_LACEWORK_VULNERABILITY_SCAN_REPOSITORY='myrepo'
+  #export BUILDKITE_PLUGIN_LACEWORK_VULNERABILITY_SCAN_TAG='latest'
+  #export BUILDKITE_PLUGIN_LACEWORK_FAIL_LEVEL='critical'
+
+  #stub lacework \
+  #"--account-name myaccount --access-token mytoken1234 vuln-scanner -s image evaluate myrepo latest --policy --critical-violation-exit-code 1 : echo 'Vuln Scan w failure'"
+
+  #run "${PWD}"/hooks/command
+
+  #assert_failure
+  #assert_output --partial "latest --policy --critical-violation-exit-code 1"
+  
+  #unstub lacework
+#}

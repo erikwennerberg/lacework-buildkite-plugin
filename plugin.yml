@@ -14,6 +14,8 @@ configuration:
       type: string
     vulnerability-scan-tag:
       type: string
+    fail-level:
+      enum: [ "critical", "high", "medium","low","info" ]
     account-name:
       type: string
     api-key-env-var:

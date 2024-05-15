@@ -78,11 +78,7 @@ function configure_plugin() {
         fi
     fi
 
-
-
-
-
-
+    export FAIL_LEVEL="${BUILDKITE_PLUGIN_LACEWORK_FAIL_LEVEL:-}"
 
 }
 
@@ -189,10 +185,17 @@ function lacework_iac() {
     )
     fi  
 
+
     CMD+=(
         iac
         "${IAC_SCAN_TYPE}"
     )
+
+    if [ -n "$FAIL_LEVEL" ]; then
+    CMD+=(
+        --fail "$FAIL_LEVEL"
+    )
+    fi  
 
 
     echo "${CMD[@]}"
@@ -224,10 +227,16 @@ function lacework_vulnerability() {
     )
 
     CMD+=(
-        vuln-scanner image evaluate
+        vuln-scanner -s image evaluate
         "${VULNERABILITY_SCAN_REPOSITORY}"  
         "${VULNERABILITY_SCAN_TAG}"
     )
+
+    if [ -n "$FAIL_LEVEL" ]; then
+    CMD+=(
+        "--policy --$FAIL_LEVEL-violation-exit-code 1"
+    )
+    fi  
 
     
     echo "${CMD[@]}"
