@@ -179,17 +179,17 @@ function lacework_iac() {
     lacework
     )
 
-    if [ -n "$PROFILE" ]; then
-    CMD+=(
-        --profile "$PROFILE"
-    )
-    fi  
-
 
     CMD+=(
         iac
         "${IAC_SCAN_TYPE}"
     )
+
+    if [ -n "$PROFILE" ]; then
+    CMD+=(
+        --iac-profile "$PROFILE"
+    )
+    fi  
 
     if [ -n "$FAIL_LEVEL" ]; then
     CMD+=(
