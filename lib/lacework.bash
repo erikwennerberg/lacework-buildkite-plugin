@@ -39,7 +39,7 @@ function configure_plugin() {
     export PROFILE="${BUILDKITE_PLUGIN_LACEWORK_PROFILE:-}" 
 
     if [ -z "${API_KEY_ENV_VAR}" ] || [ -z "${API_KEY_SECRET_ENV_VAR}" ]; then
-        if [ -z "${PROFILE}" ]; then
+        if [ -z "${PROFILE}" ] && [ "${SCAN_TYPE}" != "vulnerability" ]; then
             echo "ERROR: Missing Lacework API Key and Secret or profile" >&2
             annotate_build_no_token
             exit 1
