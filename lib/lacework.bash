@@ -62,8 +62,10 @@ function configure_plugin() {
         echo "LW_API_SECRET: ${LW_API_SECRET}"
 
         if [ -z "${IAC_SCAN_TYPE}" ] || [ -z "${LW_ACCOUNT}" ] ||  [ -z "${LW_API_KEY}" ] ||  [ -z "${LW_API_SECRET}" ]; then
-            echo "ERROR: Missing config related to IAC scans. Need the following: IAC_SCAN_TYPE, LW_ACCOUNT, LW_API_KEY, LW_API_SECRET" >&2
-            exit 1
+            if [ -z "${PROFILE}" ]; then
+                echo "ERROR: Missing config related to IAC scans. Need the following: IAC_SCAN_TYPE, LW_ACCOUNT, LW_API_KEY, LW_API_SECRET" >&2
+                exit 1
+            fi
         fi
     fi
 
